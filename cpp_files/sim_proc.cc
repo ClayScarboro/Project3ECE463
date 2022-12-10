@@ -55,7 +55,6 @@ int main (int argc, char* argv[])
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	testing;
 	
 	
     while(fscanf(FP, "%lx %d %d %d %d", &pc, &op_type, &dest, &src1, &src2) != EOF)
