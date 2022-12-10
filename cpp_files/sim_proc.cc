@@ -55,10 +55,7 @@ int main (int argc, char* argv[])
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-<<<<<<< HEAD
-	testing;
-=======
->>>>>>> d0c02b3b6bf7c956b0c2ff717fdd725402033e78
+
 	
     while(fscanf(FP, "%lx %d %d %d %d", &pc, &op_type, &dest, &src1, &src2) != EOF)
         printf("%lx %d %d %d %d\n", pc, op_type, dest, src1, src2); //Print to check if inputs have been read correctly
