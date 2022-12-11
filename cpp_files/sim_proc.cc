@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 #include "sim_proc.h"
 
 /*  argc holds the number of command line arguments
@@ -31,6 +32,11 @@ int main (int argc, char* argv[])
     params.rob_size     = strtoul(argv[1], NULL, 10);
     params.iq_size      = strtoul(argv[2], NULL, 10);
     params.width        = strtoul(argv[3], NULL, 10);
+	
+	//Initalize cycle count to 0
+	params.cycle = 0;
+	
+	
     trace_file          = argv[4];
     printf("rob_size:%lu "
             "iq_size:%lu "
@@ -54,13 +60,48 @@ int main (int argc, char* argv[])
     // inside the Fetch() function.
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-
-	
     do {
-		printf("Test\n");
+		params.fetch();
+		
+		
+		
+		
 	}
 	while (Advance_Cycle());
 
     return 0;
+}
+
+bool proc_params::Advance_Cycle(){
+	++cycle;
+	//if fscanf() == NULL, RETURN FALSE;
+	
+	return true
+}
+
+void proc_params::fetch(FP){
+	unsigned char pc, op, destReg, srcReg1, srcReg2;
+	vector<uint32_t> toAdd;
+	
+	while(DE.size() < width){
+		if(5 != fscanf(FP, "%x %x %x %x %x\n", &pc, &op, &destReg, &srcReg1, &srcReg2)){
+				//NOTHING LEFT TO READ; DO NOTHING
+				return;
+		}
+		
+		//for instruction table
+		toAdd.push_back(pc);
+		toAdd.push_back(op);
+		toAdd.push_back(destReg);
+		toAdd.push_back(srcReg1);
+		toAdd.push_back(srcReg2);
+		instTable.push_back(toAdd);
+		
+		//adding DE
+		DE.push_back(pc);
+	}
+	
+	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
+	return;
+	
 }
