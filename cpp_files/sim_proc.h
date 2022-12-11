@@ -22,7 +22,7 @@ typedef struct proc_params{
 	vector<uint32_t> ROB;
 	
 	//vector for instruction lookup
-	vector<vector<uint32_t>> instTable;
+	vector< vector<uint32_t> > instTable;
 	
 	bool Advance_Cycle();
 	void Retire();
