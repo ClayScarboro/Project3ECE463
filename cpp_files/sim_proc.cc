@@ -6,6 +6,8 @@
 #include <vector>
 #include "sim_proc.h"
 
+using namespace std;
+
 /*  argc holds the number of command line arguments
     argv[] holds the commands themselves
 

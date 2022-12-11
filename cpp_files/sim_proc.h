@@ -10,17 +10,17 @@ typedef struct proc_params{
 	int cycle;
 	
 	//Pipeline Registers
-	std::vector<uint32_t> DE;
-	std::vector<uint32_t> RN;
-	std::vector<uint32_t> RR;
-	std::vector<uint32_t> DI;
-	std::vector<uint32_t> IQ;
-	std::vector<uint32_t> execute_list;
-	std::vector<uint32_t> WB;
-	std::vector<uint32_t> ROB;
+	vector<uint32_t> DE;
+	vector<uint32_t> RN;
+	vector<uint32_t> RR;
+	vector<uint32_t> DI;
+	vector<uint32_t> IQ;
+	vector<uint32_t> execute_list;
+	vector<uint32_t> WB;
+	vector<uint32_t> ROB;
 	
 	//vector for instruction lookup
-	std::vector<vector<uint32_t>> instTable;
+	vector<vector<uint32_t>> instTable;
 	
 	bool Advance_Cycle();
 	void Retire();
