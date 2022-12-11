@@ -4,7 +4,6 @@
 #include <inttypes.h>
 #include <iostream>
 #include <vector>
-#include <cstdint>
 #include "sim_proc.h"
 
 using namespace std;
