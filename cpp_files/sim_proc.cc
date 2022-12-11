@@ -83,7 +83,7 @@ bool proc_params::Advance_Cycle(){
 	return true;
 }
 
-void proc_params::Fetch(FILE FP){
+void proc_params::Fetch(FILE*& FP){
 	uint32_t pc, op, destReg, srcReg1, srcReg2;
 	unsigned char
 	vector<uint32_t> toAdd;
