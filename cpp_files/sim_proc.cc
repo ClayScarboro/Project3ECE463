@@ -71,7 +71,7 @@ int main (int argc, char* argv[])
 		
 		
 	}
-	while (Advance_Cycle());
+	while (params.Advance_Cycle());
 
     return 0;
 }
@@ -80,7 +80,7 @@ bool proc_params::Advance_Cycle(){
 	++cycle;
 	//if fscanf() == NULL, RETURN FALSE;
 	
-	return true
+	return true;
 }
 
 void proc_params::Fetch(FP){
