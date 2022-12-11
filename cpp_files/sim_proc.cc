@@ -60,7 +60,7 @@ int main (int argc, char* argv[])
     do {
 		printf("Test\n");
 	}
-	while ((Advance_Cycle());
+	while (Advance_Cycle());
 
     return 0;
 }
