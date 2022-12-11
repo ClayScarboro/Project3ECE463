@@ -63,7 +63,7 @@ int main (int argc, char* argv[])
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     do {
-		params.fetch();
+		params.Fetch();
 		
 		
 		
@@ -81,7 +81,7 @@ bool proc_params::Advance_Cycle(){
 	return true
 }
 
-void proc_params::fetch(FP){
+void proc_params::Fetch(FP){
 	unsigned char pc, op, destReg, srcReg1, srcReg2;
 	vector<uint32_t> toAdd;
 	
