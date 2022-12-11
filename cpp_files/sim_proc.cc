@@ -58,7 +58,7 @@ int main (int argc, char* argv[])
 
 	
     do {
-		printf("Test"\n);
+		printf("Test\n");
 	}
 	while ((Advance_Cycle());
 
