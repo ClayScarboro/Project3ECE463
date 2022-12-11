@@ -12,17 +12,17 @@ typedef struct proc_params{
 	int cycle;
 	
 	//Pipeline Registers
-	vector<int> DE;
-	vector<int> RN;
-	vector<int> RR;
-	vector<int> DI;
-	vector<int> IQ;
-	vector<int> execute_list;
-	vector<int> WB;
-	vector<int> ROB;
+	vector<uint32_t> DE;
+	vector<uint32_t> RN;
+	vector<uint32_t> RR;
+	vector<uint32_t> DI;
+	vector<uint32_t> IQ;
+	vector<uint32_t> execute_list;
+	vector<uint32_t> WB;
+	vector<uint32_t> ROB;
 	
 	//vector for instruction lookup
-	vector<vector<int>> instTable;
+	vector<vector<uint32_t>> instTable;
 	
 	bool Advance_Cycle();
 	void Retire();

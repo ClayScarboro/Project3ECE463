@@ -85,7 +85,7 @@ bool proc_params::Advance_Cycle(){
 }
 
 void proc_params::Fetch(FP){
-	int op, destReg, srcReg1, srcReg2;
+	uint32_t pc, op, destReg, srcReg1, srcReg2;
 	unsigned char
 	vector<uint32_t> toAdd;
 	
