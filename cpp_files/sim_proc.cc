@@ -165,10 +165,9 @@ while(printednum<10000)
 		}
 
 
-	printf("CYCLE=%d,TAG=%d\n",clk_cycle,tag);
 	
-	//printf("TEST_BEGIN ,COUNT_ROB=%d, count_issue=%d, count_ex=%d, CYCLE=%d\n",count_rob, count_issue, count_FU, clk_cycle);
-	//gets(str);
+	
+	
 	
 	
 	////////    1.FakeRetire(); WB-> OUT
@@ -188,7 +187,7 @@ while(printednum<10000)
 
 			temprob->valid=0;
 
-			//printf("i=%d\n",head->temp);
+			
 
 			temprob->wb_dur=1;
 
@@ -200,17 +199,13 @@ while(printednum<10000)
 								if (temprob2->tag==10053)
 								{	gets(str);	printf("STOP\n");	}
 
-								fprintf(out,"%d fu{%d} src{%d,%d} dst{%d} IF{%d,%d} ID{%d,%d} IS{%d,%d} EX{%d,%d} WB{%d,%d}\n",temprob2->tag,temprob2->fu_type,temprob2->src1, temprob2->src2,temprob2->dst,temprob2->if_cycle, temprob2->if_dur,
-																												temprob2->id_cycle, temprob2->id_dur,temprob2->is_cycle, temprob2->is_dur,temprob2->ex_cycle, temprob2->ex_dur,
-																												temprob2->wb_cycle, temprob2->wb_dur);
+				
 								if(tag>9990)
-										printf("%d fu{%d} src{%d,%d} dst{%d} IF{%d,%d} ID{%d,%d} IS{%d,%d} EX{%d,%d} WB{%d,%d}\n",temprob2->tag,temprob2->fu_type,temprob2->src1, temprob2->src2,temprob2->dst,temprob2->if_cycle, temprob2->if_dur,
-																												temprob2->id_cycle, temprob2->id_dur,temprob2->is_cycle, temprob2->is_dur,temprob2->ex_cycle, temprob2->ex_dur,
-																												temprob2->wb_cycle, temprob2->wb_dur);
+										
 							if (cycle_final<temprob2->wb_cycle+temprob2->wb_dur)
 									cycle_final=temprob2->wb_cycle+temprob2->wb_dur;
 
-							printf("pringted: %d temprob2->tag: %d\n",printednum,temprob2->tag);
+							
 							printednum++;
 							
 							temprob2=temprob2->nextrob;
@@ -221,9 +216,7 @@ while(printednum<10000)
 
 			#ifdef DEBUG_PRINT1
 				//while(printednum<=temprob->tag)
-				{printf("%d fu{%d} src{%d,%d} dst{%d} IF{%d,%d} ID{%d,%d} IS{%d,%d} EX{%d,%d} WB{%d,%d}\n",temprob->tag,temprob->fu_type,temprob->src1, temprob->src2,temprob->dst,temprob->if_cycle, temprob->if_dur,
-																									temprob->id_cycle, temprob->id_dur,temprob->is_cycle, temprob->is_dur,temprob->ex_cycle, temprob->ex_dur,
-																									temprob->wb_cycle, temprob->wb_dur);
+				
 				printednum++;
 				gets(str);}
 			#endif
@@ -239,9 +232,9 @@ while(printednum<10000)
 		{
 			if (!temprob->count_ex&&temprob->state==4)
 			{	
-				//if((temprob->lastrob==NULL)||((temprob->src1==-1||temprob->lastrob->dst!=temprob->src1)&&(temprob->src2==-1||temprob->lastrob->dst!=temprob->src2)&&(temprob->lastrob->state!=3)&&(temprob->lastrob->src1==-1||rf[temprob->lastrob->src1]==1)&&(temprob->lastrob->src2==-1||rf[temprob->lastrob->src2]==1)))
+				
 				{
-				//printf("I'M HERE....");
+				
 				temprob->list_execute=0;
 				temprob->state=5;//state=5
 				count_FU++;
@@ -269,14 +262,13 @@ while(printednum<10000)
 	}
 /////////////    3.Issue();IS-> EX
 ////////////////////////////////////////DEPENDENCY &&  MAX=N+1
-	//for(k=0;k<34;k++)		printf("rf[%d]=%d  ",k, rf[k]);////Register File
 
 		for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 		{
-			//if(pipestate==1)
+			
 			if((pipestate==1&&count_FU&&temprob->state==3)||(pipestate==0&&temprob->state==3&&issue_rate))//
 				{
-					//printf("\ntag=%d rf[src1]=rf[%d]=%d,rf[src2]=rf[%d]=%d\n",temprob->tag, temprob->src1,rf[temprob->src1],temprob->src2,rf[temprob->src2]);
+					
 					if((rob[temprob->depend_entry1].oprand_state||temprob->src_state1)&&(rob[temprob->depend_entry2].oprand_state||temprob->src_state2))
 					{	
 				
@@ -330,7 +322,7 @@ while(printednum<10000)
 	
 
 /////////////////////////   6. IN ->IF
-	//printf("count_rob=%d, count_rob_id=%d\n",count_rob,count_rob_id);
+
 	
 			while(count_rob&&count_rob_id)
 			{
@@ -338,7 +330,7 @@ while(printednum<10000)
 					count_rob--;
 					count_rob_id--;
 					fscanf(FP,"%s %d %d %d %d\n",&seq_no, &op,&dst,&src1,&src2);
-					//printf("N=%d  %d\n",tag,op);
+					
 					tail->fu_type=op;
 					if (tail->fu_type==0)	tail->count_ex=1;
 					else if(tail->fu_type==1) tail->count_ex=2;
@@ -386,18 +378,15 @@ while(printednum<10000)
 					rf[tail->dst].tag = tail->entry;//entry means the entry of ROB
 					rf[tail->dst].valid = 0;
 					#ifdef DEBUG_FPRINT
-						fprintf(out,"%d %d %d %d\n",op,dst,src1,src2);
+						
 					#endif
 					tag++;
 					tail=tail->nextrob;
 			}
 	
-	//for(temprob=head;temprob!=tail;temprob=temprob->nextrob)		printf("tag=%d temprob=%d STATE= %d\n",temprob->tag, temprob, temprob->state);
-		//printf("HEAD= %d  TAIL= %d temprob=%d STATE= %d\n", head, tail, temprob, temprob->state);
+	
 
 	clk_cycle++;
-	//printf("END_OF_TEST, TAIL= %d\n",tail);
-	//gets(str);
 }
 	
 
