@@ -387,6 +387,9 @@ while(printednum<10000)
 	
 
 	clk_cycle++;
+	
+	if(clk_cycle > 10001) return 0;
+	
 }
 	
 
