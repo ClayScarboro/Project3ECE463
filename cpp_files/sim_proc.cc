@@ -134,10 +134,6 @@ int main (int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-	outputname="myoutput_256_8_gcc.txt";
-	out=fopen(outputname, "w");
-	if(!out) {printf("cannot open this out file\n");exit(0);}
-
 	//myInstr instr[9999];
 	count_issue = in_s;
 	count_FU=in_n+1;
