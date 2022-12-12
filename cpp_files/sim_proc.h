@@ -4,24 +4,31 @@
 using namespace std;
 
 
-struct ROB{
+struct myROB{
 
 	int state;//IF---1  ID---2  IS---3 EX---4 WB----5
-	int state1,state2, opState; ///0---occupied 1--available
-	int tag, list_dispatch, list_issue, list_execute, valid;
-	unsigned int status;
+	int src_state1,src_state2, oprand_state; ///0---occupied 1--available
+	int tag;
+
+	int list_dispatch;
+	int list_issue;
+	int list_execute;//	dispatch_list---1   issue_list----2 execute_list----3
+
+	int valid;
+	unsigned int fu_type;
 	int src1, src2, dst;
 	unsigned int if_cycle, if_dur;
 	unsigned int id_cycle, id_dur;
 	unsigned int is_cycle, is_dur;
 	unsigned int ex_cycle, ex_dur;
 	unsigned int wb_cycle, wb_dur;
-	unsigned int cycle;
+	unsigned int i, cycle;
 
-	unsigned int cycleCount;//judge the cycles it takes
-	int entry, depend_entry1, depend_entry2;
-	ROB *nextrob;
-	ROB *lastrob;
+	unsigned int count_ex;//judge the cycles it takes
+	int entry;
+	int depend_entry1, depend_entry2;
+	myROB *nextrob;
+	myROB *lastrob;
 
 };
 
