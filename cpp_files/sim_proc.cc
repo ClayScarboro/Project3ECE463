@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "sim_proc.h"
 #define DEBUG_PRINT
-//#define DEBUG_FPRINT
 
 struct myROB{
 
