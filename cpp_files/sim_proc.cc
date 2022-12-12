@@ -111,7 +111,7 @@ bool proc_params::Fetch(FILE*& FP){
 	}
 	
 	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
-	return 1
+	return 1;
 	
 }
 
