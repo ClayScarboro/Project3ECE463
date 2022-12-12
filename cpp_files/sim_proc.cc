@@ -121,7 +121,7 @@ void proc_params::Decode(){
 		if(RN.size() < width){
 			
 			RN.push_back(DE[0]);
-			it = DE.begin();
+			auto it = DE.begin();
 			DE.erase(it);
 			
 		}			
