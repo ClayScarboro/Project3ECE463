@@ -32,7 +32,7 @@ int main (int argc, char* argv[])
 	char*	outputname;
 
 	char	seq_no[10];
-	int		op,dst,src1,src2;
+	int		op,dst;
 	int		cycle_final=0;
 	int		tag=0,N=0;
 	int		in_n, in_s;
