@@ -65,16 +65,17 @@ int main (int argc, char* argv[])
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     do {
 		
-		printf("I'm on VERIFY cycle %d\n", params.cycle);
+		printf("I'm on cycle %d\n", params.cycle);
+		
 		params.Decode();
 		if(!params.Fetch(FP)) break; // no more file, we're out
-		printf("I'm on cycle %d\n", params.cycle);
+		
 		
 	}
 	while (params.Advance_Cycle());
 
 
-	printf("I'm on cycle %d", params.cycle);
+	
     return 0;
 }
 
