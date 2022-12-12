@@ -39,7 +39,6 @@ int main (int argc, char* argv[])
 	
 	//Initalize cycle count to 0
 	params.cycle = 0;
-	printf("I'm on c3213ycle %d", params.cycle);
 	
     trace_file          = argv[4];
     printf("rob_size:%lu "
@@ -66,10 +65,10 @@ int main (int argc, char* argv[])
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     do {
 		
-		printf("I'm on cycle %d", params.cycle);
+		printf("I'm on VERIFY cycle %d\n", params.cycle);
 		params.Decode();
 		if(!params.Fetch(FP)) break; // no more file, we're out
-		printf("I'm on cycle %d", params.cycle);
+		printf("I'm on cycle %d\n", params.cycle);
 		
 	}
 	while (params.Advance_Cycle());
