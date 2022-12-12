@@ -42,7 +42,7 @@ struct RegisterFile
 
 
 
-int main (int argc, char* argv[])
+int main (int argc, char* argv[]){
 
 
 {
@@ -388,7 +388,6 @@ while(printednum<10000)
 
 	clk_cycle++;
 	
-	if(clk_cycle > 10001) return 0;
 	
 }
 	
