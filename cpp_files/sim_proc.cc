@@ -63,12 +63,16 @@ int main (int argc, char* argv[])
     // inside the Fetch() function.
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	int traceDone = 0;
+	
+	
     do {
 		
 		printf("I'm on cycle %d\n", params.cycle);
 		
 		params.Decode();
-		if(!params.Fetch(FP)) break; // no more file, we're out
+		if(!params.Fetch(FP)) tradeDone = 1; // no more file, we're out
 		
 		
 	}
