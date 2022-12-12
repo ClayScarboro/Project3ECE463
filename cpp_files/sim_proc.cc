@@ -4,6 +4,42 @@
 #include <math.h>
 #define DEBUG_PRINT
 //#define DEBUG_FPRINT
+
+struct myROB{
+
+	int state;//IF---1  ID---2  IS---3 EX---4 WB----5
+	int src_state1,src_state2, oprand_state; ///0---occupied 1--available
+	int tag;
+
+	int list_dispatch;
+	int list_issue;
+	int list_execute;//	dispatch_list---1   issue_list----2 execute_list----3
+
+	int valid;
+	unsigned int fu_type;
+	int src1, src2, dst;
+	unsigned int if_cycle, if_dur;
+	unsigned int id_cycle, id_dur;
+	unsigned int is_cycle, is_dur;
+	unsigned int ex_cycle, ex_dur;
+	unsigned int wb_cycle, wb_dur;
+	unsigned int i, cycle;
+
+	unsigned int count_ex;//judge the cycles it takes
+	int entry;
+	int depend_entry1, depend_entry2;
+	myROB *nextrob;
+	myROB *lastrob;
+
+};
+
+struct RegisterFile
+{
+	int tag;
+	int valid;
+		
+};
+
 int main( )//int argc,char *argv[]
 
 
