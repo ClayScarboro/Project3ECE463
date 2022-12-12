@@ -116,7 +116,7 @@ int main( )//int argc,char *argv[]
 	
 	int pipestate=0;//0--pipe   1-nonpipe
 
-	tracename = "gcc1.txt";//perl1.txt    gcc1.txt
+	tracename = "gcc_trace.txt";//perl1.txt    gcc1.txt
 	tracefile=fopen(tracename,"r");
 	if(tracefile==NULL)  { printf("cannot open tracefile\n");}
 
