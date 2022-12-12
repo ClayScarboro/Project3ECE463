@@ -86,7 +86,7 @@ bool proc_params::Advance_Cycle(){
 	return true;
 }
 
-bool proc_params::Fetch(FILE*& FP){
+bool proc_params::Fetch(FILE* FP){
 	uint32_t pc, op, destReg, srcReg1, srcReg2;
 	vector<uint32_t> toAdd;
 	
