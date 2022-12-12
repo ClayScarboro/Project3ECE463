@@ -71,21 +71,21 @@ int main (int argc, char* argv[])
 	int		count_FU, count_issue;
 	static RegisterFile rf[100];//Register File
 	double IPC;
-	myROB rob[rob_size];
+	myROB rob[params.rob_size];
 	myROB *head, *temprob, *temprob2, *tail;
 
 	head=rob;
 	tail=head;
 
-	rob[rob_size - 1].nextrob=&rob[0];
-	rob[0].lastrob=&rob[rob_size - 1];
+	rob[params.rob_size - 1].nextrob=&rob[0];
+	rob[0].lastrob=&rob[params.rob_size - 1];
 
 	int printednum=0;
 		 
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////Initializing
 /////////////////////////////////////////////////////////////////////////////////////////
-		   for(i=0;i<rob_size - 1;i++)
+		   for(i=0;i<params.rob_size - 1;i++)
 		   {
 				rob[i+1].lastrob=&rob[i];
 				rob[i].nextrob=&rob[i+1];
@@ -93,7 +93,7 @@ int main (int argc, char* argv[])
 		   }
 		   
 		   
-		   for(i=0;i<rob_size;i++)
+		   for(i=0;i<params.rob_size;i++)
 		   {
 				
 				rob[i].valid=1;
@@ -124,10 +124,10 @@ int main (int argc, char* argv[])
 	int pipestate=0;//0--pipe   1-nonpipe
 
 	// Open trace_file in read mode
-    printf("rob_size:%lu "
+    printf("params.rob_size:%lu "
             "iq_size:%lu "
             "width:%lu "
-            "tracefile:%s\n", params.rob_size, params.iq_size, params.width, trace_file);
+            "tracefile:%s\n", params.params.rob_size, params.iq_size, params.width, trace_file);
     // Open trace_file in read mode
     FP = fopen(trace_file, "r");
     if(FP == NULL)
