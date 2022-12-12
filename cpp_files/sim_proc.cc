@@ -111,7 +111,7 @@ int main (int argc, char* argv[])
 			//gets(str);
 		}
 
-	int pipestate=0
+	int pipestate=0;
 	printf("CYCLE=%d,TAG=%d\n",clk_cycle,tag);
 	
 	//printf("TEST_BEGIN ,COUNT_ROB=%d, count_issue=%d, cycleCount=%d, CYCLE=%d\n",count_rob, count_issue, count_FU, clk_cycle);
