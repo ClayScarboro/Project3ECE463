@@ -46,12 +46,12 @@ int main( )//int argc,char *argv[]
 
 
 {
-	
 	int i,j,k;
+
+
 	char	str[5];
-	FILE	*FP,*out;
-	char*	trace_file;
-	proc_params params;
+	FILE	*tracefile,*out;
+	char*	tracename;
 	char*	outputname;
 
 	char	seq_no[10];
@@ -116,14 +116,9 @@ int main( )//int argc,char *argv[]
 	
 	int pipestate=0;//0--pipe   1-nonpipe
 
-	// Open trace_file in read mode
-    FP = fopen(trace_file, "r");
-    if(FP == NULL)
-    {
-        // Throw error and exit if fopen() failed
-        printf("Error: Unable to open file %s\n", trace_file);
-        exit(EXIT_FAILURE);
-    }
+	tracename = "gcc_trace.txt";//perl1.txt    gcc1.txt
+	tracefile=fopen(tracename,"r");
+	if(tracefile==NULL)  { printf("cannot open tracefile\n");}
 
 	outputname="myoutput_256_8_gcc.txt";
 	out=fopen(outputname, "w");
@@ -142,7 +137,7 @@ int main( )//int argc,char *argv[]
 ////////////////////////////////////////////////////////Cycle begins
 /////////////////////////////////////////////////////////////////////////////////////////
 	
-	//while(!feof(FP)||count_rob) //ONE clk cycle begins
+	//while(!feof(tracefile)||count_rob) //ONE clk cycle begins
 while(printednum<10000)
 	{	
 	
@@ -325,7 +320,7 @@ while(printednum<10000)
 		
 					count_rob--;
 					count_rob_id--;
-					fscanf(FP,"%s %d %d %d %d\n",&seq_no, &op,&dst,&src1,&src2);
+					fscanf(tracefile,"%s %d %d %d %d\n",&seq_no, &op,&dst,&src1,&src2);
 					//printf("N=%d  %d\n",tag,op);
 					tail->fu_type=op;
 					if (tail->fu_type==0)	tail->count_ex=1;
@@ -395,10 +390,11 @@ while(printednum<10000)
 	fprintf(out,"number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5lf",printednum,cycle_final,IPC);
 	fclose(out);
 
-	fclose(FP);
+	fclose(tracefile);
 	
 	getchar();
 	return(0);
 
 
 }
+
