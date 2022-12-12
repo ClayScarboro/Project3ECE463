@@ -127,7 +127,7 @@ int main (int argc, char* argv[])
     printf("params.rob_size:%lu "
             "iq_size:%lu "
             "width:%lu "
-            "tracefile:%s\n", params.params.rob_size, params.iq_size, params.width, trace_file);
+            "tracefile:%s\n", params.rob_size, params.iq_size, params.width, trace_file);
     // Open trace_file in read mode
     FP = fopen(trace_file, "r");
     if(FP == NULL)
