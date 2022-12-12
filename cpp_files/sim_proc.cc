@@ -76,7 +76,7 @@ int main (int argc, char* argv[])
 		
 		
 	}
-	while (1);
+	while (params.Advance_Cycle());
 
 
 	
