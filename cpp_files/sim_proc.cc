@@ -42,12 +42,7 @@ struct RegisterFile
 
 
 
-int main (int argc, char* argv[]){
-
-
-{
-
-	
+int main (int argc, char* argv[]){	
 	int i,j,k;
 	char	str[5];
 	FILE	*FP,*out;
@@ -389,7 +384,7 @@ while(printednum<10000)
 	clk_cycle++;
 	
 	
-}
+	}
 	
 
 	IPC=(double)printednum/(double)cycle_final;
@@ -401,7 +396,7 @@ while(printednum<10000)
 	fclose(FP);
 	
 	getchar();
-	return(0);
+	return 0;
 
 
 }
