@@ -69,7 +69,7 @@ int main (int argc, char* argv[])
 		
 		
 		
-		
+		params.Decode();
 		params.Fetch(FP);
 		
 		
