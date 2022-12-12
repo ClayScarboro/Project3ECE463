@@ -65,7 +65,7 @@ int main (int argc, char* argv[])
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     do {
-		
+		printf("I'm on cycle %d", params.cycle);
 		
 		
 		
@@ -78,6 +78,8 @@ int main (int argc, char* argv[])
 	}
 	while (params.Advance_Cycle());
 
+
+	printf("I'm on cycle %d", params.cycle);
     return 0;
 }
 
