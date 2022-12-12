@@ -65,6 +65,11 @@ int main (int argc, char* argv[])
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     do {
+		
+		
+		
+		
+		
 		params.Fetch(FP);
 		
 		
@@ -103,6 +108,23 @@ void proc_params::Fetch(FILE*& FP){
 		
 		//adding DE
 		DE.push_back(pc);
+	}
+	
+	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
+	return;
+	
+}
+
+void proc_params::Decode(){
+	
+	while(DE.size() > 0){
+		if(RN.size() < width){
+			
+			RN.push_back(DE[0]);
+			it = DE.begin();
+			DE.erase(it);
+			
+		}			
 	}
 	
 	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
