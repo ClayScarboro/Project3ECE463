@@ -379,7 +379,7 @@ while(printednum<10000)
 
 	IPC=(double)printednum/(double)cycle_final;
 	
-	printf("number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5f\n",printednum,cycle_final,IPC);
+	printf("Dynamic Instruction Count = %d\nCycles       = %d\nInstructions Per Cycle (IPC) = %1.2f\n",printednum,cycle_final,IPC);
 	
 
 	return 0;
