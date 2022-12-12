@@ -46,6 +46,10 @@ int main (int argc, char* argv[])
 
 
 {
+	params.rob_size     = strtoul(argv[1], NULL, 10);
+    params.iq_size      = strtoul(argv[2], NULL, 10);
+    params.width        = strtoul(argv[3], NULL, 10);
+    trace_file          = argv[4];
 	
 	int i,j,k;
 	char	str[5];
@@ -64,7 +68,7 @@ int main (int argc, char* argv[])
 	int		count_FU, count_issue;
 	static RegisterFile rf[100];//Register File
 	double IPC;
-	myROB rob[1024];
+	myROB rob[rob_size];
 	myROB *head, *temprob, *temprob2, *tail;
 
 	head=rob;
@@ -86,7 +90,7 @@ int main (int argc, char* argv[])
 		   }
 		   
 		   
-		   for(i=0;i<1024;i++)
+		   for(i=0;i<rob_size;i++)
 		   {
 				
 				rob[i].valid=1;
@@ -117,10 +121,6 @@ int main (int argc, char* argv[])
 	int pipestate=0;//0--pipe   1-nonpipe
 
 	// Open trace_file in read mode
-    params.rob_size     = strtoul(argv[1], NULL, 10);
-    params.iq_size      = strtoul(argv[2], NULL, 10);
-    params.width        = strtoul(argv[3], NULL, 10);
-    trace_file          = argv[4];
     printf("rob_size:%lu "
             "iq_size:%lu "
             "width:%lu "
