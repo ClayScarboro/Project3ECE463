@@ -70,7 +70,7 @@ int main (int argc, char* argv[])
 		
 		
 		params.Decode();
-		params.Fetch(FP);
+		if(!params.Fetch(FP)) break; // no more file, we're out
 		
 		
 		
@@ -88,14 +88,14 @@ bool proc_params::Advance_Cycle(){
 	return true;
 }
 
-void proc_params::Fetch(FILE*& FP){
+bool proc_params::Fetch(FILE*& FP){
 	uint32_t pc, op, destReg, srcReg1, srcReg2;
 	vector<uint32_t> toAdd;
 	
 	while(DE.size() < width){
 		if(5 != fscanf(FP, "%x %x %x %x %x\n", &pc, &op, &destReg, &srcReg1, &srcReg2)){
 				//NOTHING LEFT TO READ; DO NOTHING
-				return;
+				return 0;
 		}
 		
 		//for instruction table
@@ -111,7 +111,7 @@ void proc_params::Fetch(FILE*& FP){
 	}
 	
 	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
-	return;
+	return 1
 	
 }
 

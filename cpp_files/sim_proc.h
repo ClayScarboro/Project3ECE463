@@ -33,7 +33,7 @@ typedef struct proc_params{
 	void RegRead();
 	void Rename();
 	void Decode();
-	void Fetch(FILE*&);
+	int Fetch(FILE*&);
 	
 }proc_params;
 
