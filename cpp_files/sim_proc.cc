@@ -7,13 +7,13 @@
 
 struct myROB{
 
-	int state;//IF---1  ID---2  IS---3 EX---4 WB----5
-	int src_state1,src_state2, oprand_state; ///0---occupied 1--available
+	int state;
+	int src_state1,src_state2, oprand_state;
 	int tag;
 
 	int list_dispatch;
 	int list_issue;
-	int list_execute;//	dispatch_list---1   issue_list----2 execute_list----3
+	int list_execute;
 
 	int valid;
 	unsigned int fu_type;
@@ -25,7 +25,7 @@ struct myROB{
 	unsigned int wb_cycle, wb_dur;
 	unsigned int i, cycle;
 
-	unsigned int count_ex;//judge the cycles it takes
+	unsigned int count_ex;
 	int entry;
 	int depend_entry1, depend_entry2;
 	myROB *nextrob;
@@ -62,9 +62,9 @@ int main (int argc, char* argv[]){
 	int		tag=0,N=0;
 	int		in_n, in_s;
 	int		clk_cycle;
-	int		count_rob,count_rob_id;//increment when move instr into rob[]
+	int		count_rob,count_rob_id;
 	int		count_FU, count_issue;
-	static RegisterFile rf[100];//Register File
+	static RegisterFile rf[100];
 	double IPC;
 	myROB rob[params.rob_size];
 	myROB *head, *temprob, *temprob2, *tail;
@@ -77,9 +77,7 @@ int main (int argc, char* argv[]){
 
 	int printednum=0;
 		 
-/////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////Initializing
-/////////////////////////////////////////////////////////////////////////////////////////
+
 		   for(i=0;i<params.rob_size - 1;i++)
 		   {
 				rob[i+1].lastrob=&rob[i];
@@ -92,7 +90,6 @@ int main (int argc, char* argv[]){
 		   {
 				
 				rob[i].valid=1;
-				//rob[i].temp=i;
 				rob[i].list_dispatch=0;
 				rob[i].list_issue=0;
 				rob[i].list_execute=0;
@@ -109,25 +106,23 @@ int main (int argc, char* argv[]){
 		   count_rob=0;
 		   count_rob_id=0;
 		   
-/////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////Read_In File
-/////////////////////////////////////////////////////////////////////////////////////////
-	
-	in_s=256;//2
-	in_n=8;//8
-	
-	int pipestate=0;//0--pipe   1-nonpipe
 
-	// Open trace_file in read mode
+	
+	in_s=256;
+	in_n=8;
+	
+	int pipestate=0;
+
+	
     printf("params.rob_size:%lu "
             "iq_size:%lu "
             "width:%lu "
             "tracefile:%s\n", params.rob_size, params.iq_size, params.width, trace_file);
-    // Open trace_file in read mode
+   
     FP = fopen(trace_file, "r");
     if(FP == NULL)
     {
-        // Throw error and exit if fopen() failed
+        
         printf("Error: Unable to open file %s\n", trace_file);
         exit(EXIT_FAILURE);
     }
@@ -136,7 +131,7 @@ int main (int argc, char* argv[]){
 	out=fopen(outputname, "w");
 	if(!out) {printf("cannot open this out file\n");exit(0);}
 
-	//myInstr instr[9999];
+
 	count_issue = in_s;
 	count_FU=in_n+1;
 	count_rob=in_n;
@@ -145,9 +140,7 @@ int main (int argc, char* argv[]){
 	head->lastrob=NULL;
 	int issue_rate=0;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////Cycle begins
-/////////////////////////////////////////////////////////////////////////////////////////
+
 	
 	//while(!feof(FP)||count_rob) //ONE clk cycle begins
 while(printednum<10000)
@@ -165,7 +158,7 @@ while(printednum<10000)
 	
 	
 	
-	////////    1.FakeRetire(); WB-> OUT
+
 	
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 	{		
@@ -174,11 +167,11 @@ while(printednum<10000)
 	
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 	{
-		if(temprob->state==5)//reach WB, completed
+		if(temprob->state==5)
 		{	
 
 			i++;
-			temprob->state=6;//state=6
+			temprob->state=6;
 
 			temprob->valid=0;
 
@@ -204,13 +197,13 @@ while(printednum<10000)
 							printednum++;
 							
 							temprob2=temprob2->nextrob;
-							//gets(str);
+							
 					}
 			#endif
 
 
 			#ifdef DEBUG_PRINT1
-				//while(printednum<=temprob->tag)
+				
 				
 				printednum++;
 				gets(str);}
@@ -220,8 +213,7 @@ while(printednum<10000)
 	
 	}
 
-	////////     2.Execute(); EX-> WB
-	////////////////////////////LATENCY
+
 
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 		{
@@ -231,7 +223,7 @@ while(printednum<10000)
 				{
 				
 				temprob->list_execute=0;
-				temprob->state=5;//state=5
+				temprob->state=5;
 				count_FU++;
 				
 				
@@ -239,24 +231,23 @@ while(printednum<10000)
 						{
 									if(temprob->entry==rf[temprob->dst].tag) 
 									{
-											rf[temprob->dst].valid=1; //tag match
+											rf[temprob->dst].valid=1; 
 									}
 						}
 
 
-				temprob->oprand_state=1;//oprand ready
+				temprob->oprand_state=1;
 				temprob->wb_cycle=clk_cycle;
 				temprob->ex_dur=(temprob->wb_cycle - temprob->ex_cycle);
 				}
 			}
 		else if(temprob->state==4)
-				temprob->count_ex--;//depend on op type
+				temprob->count_ex--;
 	
 
 
 	}
-/////////////    3.Issue();IS-> EX
-////////////////////////////////////////DEPENDENCY &&  MAX=N+1
+
 
 		for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 		{
@@ -272,7 +263,7 @@ while(printednum<10000)
 						temprob->count_ex--;
 						temprob->list_issue=0;
 						temprob->list_execute=1;
-						temprob->state=4;//state=4
+						temprob->state=4;
 						count_issue++;
 						temprob->ex_cycle=clk_cycle;
 						temprob->is_dur=(temprob->ex_cycle - temprob->is_cycle);
@@ -283,8 +274,7 @@ while(printednum<10000)
 		}
 
 
-/////////////    4.Dispatch(); ID->IS
-///////////////////////////////////////////S IS FULL OR NOT
+
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 	{
 	if(count_issue&&temprob->state==2)
@@ -293,30 +283,30 @@ while(printednum<10000)
 			count_rob_id++;
 			temprob->list_dispatch=0;
 			temprob->list_issue=1;
-			temprob->state=3; //state=3
+			temprob->state=3; 
 			temprob->is_cycle=clk_cycle;
 			temprob->id_dur=(temprob->is_cycle - temprob->id_cycle);
-			//if(temprob->dst!=-1) rf[temprob->dst]=0;
+		
 			
 		}
 
 	}
-/////////////   5.Fetch(); IF->ID
+
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 	 {
 		 if(count_rob_id&&temprob->state==1)
 			{
 				temprob->list_dispatch=1;
-				//if(temprob->dst!=-1) rf[temprob->dst].valid=0; 
+			
 				count_rob++;
-				temprob->state=2;//state=2
+				temprob->state=2;
 			}
 
 	}
 
 	
 
-/////////////////////////   6. IN ->IF
+
 
 	
 			while(count_rob&&count_rob_id)
@@ -338,19 +328,19 @@ while(printednum<10000)
 					tail->if_cycle=clk_cycle;
 					tail->id_cycle=clk_cycle + 1;
 					tail->if_dur=1;
-					tail->state=1;//IF
+					tail->state=1;
 					
 
 
 					
 					
-					tail->oprand_state=0; //not completed
+					tail->oprand_state=0;
 					
 
 					if ( !rf[tail->src1].valid && tail->src1!=-1) 
 						{
 									tail->depend_entry1=rf[tail->src1].tag; 
-									tail->src_state1 = 0;//occupied by others
+									tail->src_state1 = 0;
 						}
 						else if(rf[tail->src1].valid || tail->src1==-1) 
 							{
@@ -361,7 +351,7 @@ while(printednum<10000)
 
 					if(!rf[tail->src2].valid && tail->src2!=-1) 
 						{
-									tail->depend_entry2=rf[tail->src2].tag;// else  tail->depend_entry2=0;
+									tail->depend_entry2=rf[tail->src2].tag;
 									tail->src_state2 = 0;
 						}
 						else if(rf[tail->src2].valid || tail->src2==-1) 
@@ -370,7 +360,7 @@ while(printednum<10000)
 									tail->depend_entry2=tail->entry;
 								}
 
-					rf[tail->dst].tag = tail->entry;//entry means the entry of ROB
+					rf[tail->dst].tag = tail->entry;
 					rf[tail->dst].valid = 0;
 					#ifdef DEBUG_FPRINT
 						
@@ -389,13 +379,9 @@ while(printednum<10000)
 
 	IPC=(double)printednum/(double)cycle_final;
 	
-	printf("number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5f",printednum,cycle_final,IPC);
-	fprintf(out,"number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5lf",printednum,cycle_final,IPC);
+	printf("number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5f\n",printednum,cycle_final,IPC);
 	
 
-	
-	
-	
 	return 0;
 
 
