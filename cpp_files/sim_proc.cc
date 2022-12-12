@@ -46,10 +46,7 @@ int main (int argc, char* argv[])
 
 
 {
-	params.rob_size     = strtoul(argv[1], NULL, 10);
-    params.iq_size      = strtoul(argv[2], NULL, 10);
-    params.width        = strtoul(argv[3], NULL, 10);
-    trace_file          = argv[4];
+
 	
 	int i,j,k;
 	char	str[5];
@@ -57,6 +54,12 @@ int main (int argc, char* argv[])
 	char*	trace_file;
 	proc_params params;
 	char*	outputname;
+	
+	params.rob_size     = strtoul(argv[1], NULL, 10);
+    params.iq_size      = strtoul(argv[2], NULL, 10);
+    params.width        = strtoul(argv[3], NULL, 10);
+    trace_file          = argv[4];
+	
 
 	char	seq_no[10];
 	int		op,dst,src1,src2;
@@ -74,15 +77,15 @@ int main (int argc, char* argv[])
 	head=rob;
 	tail=head;
 
-	rob[1023].nextrob=&rob[0];
-	rob[0].lastrob=&rob[1023];
+	rob[rob_size - 1].nextrob=&rob[0];
+	rob[0].lastrob=&rob[rob_size - 1];
 
 	int printednum=0;
 		 
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////Initializing
 /////////////////////////////////////////////////////////////////////////////////////////
-		   for(i=0;i<1023;i++)
+		   for(i=0;i<rob_size - 1;i++)
 		   {
 				rob[i+1].lastrob=&rob[i];
 				rob[i].nextrob=&rob[i+1];
