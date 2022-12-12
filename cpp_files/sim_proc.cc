@@ -91,8 +91,9 @@ bool proc_params::Fetch(FILE*& FP){
 	vector<uint32_t> toAdd;
 	
 	while(DE.size() < width){
-		if(5 != fscanf(FP, "%x %x %x %x %x\n", &pc, &op, &destReg, &srcReg1, &srcReg2)){
+		if(EOF == fscanf(FP, "%x %x %x %x %x\n", &pc, &op, &destReg, &srcReg1, &srcReg2)){
 				//NOTHING LEFT TO READ; DO NOTHING
+				printf("EOF\n");
 				return 0;
 		}
 		
