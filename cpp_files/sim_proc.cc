@@ -110,6 +110,7 @@ bool proc_params::Fetch(FILE*& FP){
 	}
 	
 	//DE is filled, we won, GET OUT OF THERE SOLIDER!!!
+	printf("Read File\n");
 	return 1;
 	
 }
