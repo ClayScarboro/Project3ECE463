@@ -74,7 +74,7 @@ int main (int argc, char* argv[])
 		
 		
 		
-		
+		printf("I'm on cycle %d", params.cycle);
 	}
 	while (params.Advance_Cycle());
 
