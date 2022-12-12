@@ -30,7 +30,7 @@ int main (int argc, char* argv[])
 	FILE	*tracefile,*out;
 	char*	tracename;
 	char*	outputname;
-
+	int issue_rate=0;
 	char	seq_no[10];
 	int		op,dst;
 	int		cycle_final=0;
@@ -111,7 +111,7 @@ int main (int argc, char* argv[])
 			//gets(str);
 		}
 
-
+	int pipestate=0
 	printf("CYCLE=%d,TAG=%d\n",clk_cycle,tag);
 	
 	//printf("TEST_BEGIN ,COUNT_ROB=%d, count_issue=%d, cycleCount=%d, CYCLE=%d\n",count_rob, count_issue, count_FU, clk_cycle);
@@ -124,6 +124,9 @@ int main (int argc, char* argv[])
 	{		
 		if(head->state==6) head=head->nextrob;
 	}
+	
+	int i = 0;
+	
 	
 	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
 	{
