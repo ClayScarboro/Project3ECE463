@@ -50,7 +50,7 @@ int main (int argc, char* argv[]){
 	proc_params params;
 	char*	outputname;
 	
-	params.ROB_size     = strtoul(argv[1], NULL, 10);
+	params.rob_size     = strtoul(argv[1], NULL, 10);
     params.iq_size      = strtoul(argv[2], NULL, 10);
     params.width        = strtoul(argv[3], NULL, 10);
     trace_file          = argv[4];
@@ -66,19 +66,19 @@ int main (int argc, char* argv[]){
 	int		count_FU, count_issue;
 	static regFile rf[100];
 	double IPC;
-	MAINROB ROB[params.ROB_size];
+	MAINROB ROB[params.rob_size];
 	MAINROB *head, *tempROB, *tempROB2, *tail;
 
 	head=ROB;
 	tail=head;
 
-	ROB[params.ROB_size - 1].nextROB=&ROB[0];
-	ROB[0].lastROB=&ROB[params.ROB_size - 1];
+	ROB[params.rob_size - 1].nextROB=&ROB[0];
+	ROB[0].lastROB=&ROB[params.rob_size - 1];
 
 	int printednum=0;
 		 
 
-		   for(i=0;i<params.ROB_size - 1;i++)
+		   for(i=0;i<params.rob_size - 1;i++)
 		   {
 				ROB[i+1].lastROB=&ROB[i];
 				ROB[i].nextROB=&ROB[i+1];
@@ -86,7 +86,7 @@ int main (int argc, char* argv[]){
 		   }
 		   
 		   
-		   for(i=0;i<params.ROB_size;i++)
+		   for(i=0;i<params.rob_size;i++)
 		   {
 				
 				ROB[i].valid=1;
@@ -114,10 +114,10 @@ int main (int argc, char* argv[]){
 	int pipestate=0;
 
 	
-    printf("params.ROB_size:%lu "
+    printf("params.rob_size:%lu "
             "iq_size:%lu "
             "width:%lu "
-            "tracefile:%s\n", params.ROB_size, params.iq_size, params.width, trace_file);
+            "tracefile:%s\n", params.rob_size, params.iq_size, params.width, trace_file);
    
     FP = fopen(trace_file, "r");
     if(FP == NULL)
