@@ -5,7 +5,7 @@
 #include "sim_proc.h"
 #define DEBUG_PRINT
 
-struct rob{
+struct MAINROB{
 
 	int state;
 	int src_state1,src_state2, oprand_state;
@@ -28,8 +28,8 @@ struct rob{
 	unsigned int count_ex;
 	int entry;
 	int depend_entry1, depend_entry2;
-	rob *nextrob;
-	rob *lastrob;
+	MAINROB *nextROB;
+	MAINROB *lastROB;
 
 };
 
@@ -50,7 +50,7 @@ int main (int argc, char* argv[]){
 	proc_params params;
 	char*	outputname;
 	
-	params.rob_size     = strtoul(argv[1], NULL, 10);
+	params.ROB_size     = strtoul(argv[1], NULL, 10);
     params.iq_size      = strtoul(argv[2], NULL, 10);
     params.width        = strtoul(argv[3], NULL, 10);
     trace_file          = argv[4];
@@ -62,39 +62,39 @@ int main (int argc, char* argv[]){
 	int		tag=0,N=0;
 	int		in_n, in_s;
 	int		clk_cycle;
-	int		count_rob,count_rob_id;
+	int		count_ROB,count_ROB_id;
 	int		count_FU, count_issue;
 	static regFile rf[100];
 	double IPC;
-	rob rob[params.rob_size];
-	rob *head, *temprob, *temprob2, *tail;
+	MAINROB ROB[params.ROB_size];
+	MAINROB *head, *tempROB, *tempROB2, *tail;
 
-	head=rob;
+	head=ROB;
 	tail=head;
 
-	rob[params.rob_size - 1].nextrob=&rob[0];
-	rob[0].lastrob=&rob[params.rob_size - 1];
+	ROB[params.ROB_size - 1].nextROB=&ROB[0];
+	ROB[0].lastROB=&ROB[params.ROB_size - 1];
 
 	int printednum=0;
 		 
 
-		   for(i=0;i<params.rob_size - 1;i++)
+		   for(i=0;i<params.ROB_size - 1;i++)
 		   {
-				rob[i+1].lastrob=&rob[i];
-				rob[i].nextrob=&rob[i+1];
+				ROB[i+1].lastROB=&ROB[i];
+				ROB[i].nextROB=&ROB[i+1];
 				
 		   }
 		   
 		   
-		   for(i=0;i<params.rob_size;i++)
+		   for(i=0;i<params.ROB_size;i++)
 		   {
 				
-				rob[i].valid=1;
-				rob[i].list_dispatch=0;
-				rob[i].list_issue=0;
-				rob[i].list_execute=0;
-				rob[i].entry=i;
-				rob[i].oprand_state=1;
+				ROB[i].valid=1;
+				ROB[i].list_dispatch=0;
+				ROB[i].list_issue=0;
+				ROB[i].list_execute=0;
+				ROB[i].entry=i;
+				ROB[i].oprand_state=1;
 		   }
 			
 		   for(j=0;j<100;j++)
@@ -103,8 +103,8 @@ int main (int argc, char* argv[]){
 				}
 
 		   clk_cycle=0;
-		   count_rob=0;
-		   count_rob_id=0;
+		   count_ROB=0;
+		   count_ROB_id=0;
 		   
 
 	
@@ -114,10 +114,10 @@ int main (int argc, char* argv[]){
 	int pipestate=0;
 
 	
-    printf("params.rob_size:%lu "
+    printf("params.ROB_size:%lu "
             "iq_size:%lu "
             "width:%lu "
-            "tracefile:%s\n", params.rob_size, params.iq_size, params.width, trace_file);
+            "tracefile:%s\n", params.ROB_size, params.iq_size, params.width, trace_file);
    
     FP = fopen(trace_file, "r");
     if(FP == NULL)
@@ -134,15 +134,15 @@ int main (int argc, char* argv[]){
 
 	count_issue = in_s;
 	count_FU=in_n+1;
-	count_rob=in_n;
-	count_rob_id=in_n*2;
-	temprob2=head;
-	head->lastrob=NULL;
+	count_ROB=in_n;
+	count_ROB_id=in_n*2;
+	tempROB2=head;
+	head->lastROB=NULL;
 	int issue_rate=0;
 
 
 	
-	//while(!feof(FP)||count_rob) //ONE clk cycle begins
+	//while(!feof(FP)||count_ROB) //ONE clk cycle begins
 while(printednum<10000)
 	{	
 	
@@ -160,43 +160,43 @@ while(printednum<10000)
 	
 
 	
-	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+	for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 	{		
-		if(head->state==6) head=head->nextrob;
+		if(head->state==6) head=head->nextROB;
 	}
 	
-	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+	for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 	{
-		if(temprob->state==5)
+		if(tempROB->state==5)
 		{	
 
 			i++;
-			temprob->state=6;
+			tempROB->state=6;
 
-			temprob->valid=0;
+			tempROB->valid=0;
 
 			
 
-			temprob->wb_dur=1;
+			tempROB->wb_dur=1;
 
 
 			#ifdef DEBUG_PRINT
-					if(temprob2->state==6&&temprob2->tag==printednum&&printednum<10000)
+					if(tempROB2->state==6&&tempROB2->tag==printednum&&printednum<10000)
 		
 							{
-								if (temprob2->tag==10053)
+								if (tempROB2->tag==10053)
 								{	gets(str);	printf("STOP\n");	}
 
 				
 								if(tag>9990)
 										
-							if (cycle_final<temprob2->wb_cycle+temprob2->wb_dur)
-									cycle_final=temprob2->wb_cycle+temprob2->wb_dur;
+							if (cycle_final<tempROB2->wb_cycle+tempROB2->wb_dur)
+									cycle_final=tempROB2->wb_cycle+tempROB2->wb_dur;
 
 							
 							printednum++;
 							
-							temprob2=temprob2->nextrob;
+							tempROB2=tempROB2->nextROB;
 							
 					}
 			#endif
@@ -215,58 +215,58 @@ while(printednum<10000)
 
 
 
-	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+	for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 		{
-			if (!temprob->count_ex&&temprob->state==4)
+			if (!tempROB->count_ex&&tempROB->state==4)
 			{	
 				
 				{
 				
-				temprob->list_execute=0;
-				temprob->state=5;
+				tempROB->list_execute=0;
+				tempROB->state=5;
 				count_FU++;
 				
 				
-			if(temprob->dst!=-1)
+			if(tempROB->dst!=-1)
 						{
-									if(temprob->entry==rf[temprob->dst].tag) 
+									if(tempROB->entry==rf[tempROB->dst].tag) 
 									{
-											rf[temprob->dst].valid=1; 
+											rf[tempROB->dst].valid=1; 
 									}
 						}
 
 
-				temprob->oprand_state=1;
-				temprob->wb_cycle=clk_cycle;
-				temprob->ex_dur=(temprob->wb_cycle - temprob->ex_cycle);
+				tempROB->oprand_state=1;
+				tempROB->wb_cycle=clk_cycle;
+				tempROB->ex_dur=(tempROB->wb_cycle - tempROB->ex_cycle);
 				}
 			}
-		else if(temprob->state==4)
-				temprob->count_ex--;
+		else if(tempROB->state==4)
+				tempROB->count_ex--;
 	
 
 
 	}
 
 
-		for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+		for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 		{
 			
-			if((pipestate==1&&count_FU&&temprob->state==3)||(pipestate==0&&temprob->state==3&&issue_rate))//
+			if((pipestate==1&&count_FU&&tempROB->state==3)||(pipestate==0&&tempROB->state==3&&issue_rate))//
 				{
 					
-					if((rob[temprob->depend_entry1].oprand_state||temprob->src_state1)&&(rob[temprob->depend_entry2].oprand_state||temprob->src_state2))
+					if((ROB[tempROB->depend_entry1].oprand_state||tempROB->src_state1)&&(ROB[tempROB->depend_entry2].oprand_state||tempROB->src_state2))
 					{	
 				
 						issue_rate--;
 						count_FU--;
-						temprob->count_ex--;
-						temprob->list_issue=0;
-						temprob->list_execute=1;
-						temprob->state=4;
+						tempROB->count_ex--;
+						tempROB->list_issue=0;
+						tempROB->list_execute=1;
+						tempROB->state=4;
 						count_issue++;
-						temprob->ex_cycle=clk_cycle;
-						temprob->is_dur=(temprob->ex_cycle - temprob->is_cycle);
+						tempROB->ex_cycle=clk_cycle;
+						tempROB->is_dur=(tempROB->ex_cycle - tempROB->is_cycle);
 					}
 	
 				}
@@ -275,31 +275,31 @@ while(printednum<10000)
 
 
 
-	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+	for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 	{
-	if(count_issue&&temprob->state==2)
+	if(count_issue&&tempROB->state==2)
 		{
 			count_issue--;
-			count_rob_id++;
-			temprob->list_dispatch=0;
-			temprob->list_issue=1;
-			temprob->state=3; 
-			temprob->is_cycle=clk_cycle;
-			temprob->id_dur=(temprob->is_cycle - temprob->id_cycle);
+			count_ROB_id++;
+			tempROB->list_dispatch=0;
+			tempROB->list_issue=1;
+			tempROB->state=3; 
+			tempROB->is_cycle=clk_cycle;
+			tempROB->id_dur=(tempROB->is_cycle - tempROB->id_cycle);
 		
 			
 		}
 
 	}
 
-	for(temprob=head;temprob!=tail;temprob=temprob->nextrob)
+	for(tempROB=head;tempROB!=tail;tempROB=tempROB->nextROB)
 	 {
-		 if(count_rob_id&&temprob->state==1)
+		 if(count_ROB_id&&tempROB->state==1)
 			{
-				temprob->list_dispatch=1;
+				tempROB->list_dispatch=1;
 			
-				count_rob++;
-				temprob->state=2;
+				count_ROB++;
+				tempROB->state=2;
 			}
 
 	}
@@ -309,11 +309,11 @@ while(printednum<10000)
 
 
 	
-			while(count_rob&&count_rob_id)
+			while(count_ROB&&count_ROB_id)
 			{
 		
-					count_rob--;
-					count_rob_id--;
+					count_ROB--;
+					count_ROB_id--;
 					fscanf(FP,"%s %d %d %d %d\n",&seq_no, &op,&dst,&src1,&src2);
 					
 					tail->fu_type=op;
@@ -366,7 +366,7 @@ while(printednum<10000)
 						
 					#endif
 					tag++;
-					tail=tail->nextrob;
+					tail=tail->nextROB;
 			}
 	
 	
