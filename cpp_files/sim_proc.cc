@@ -5,7 +5,7 @@
 #include "sim_proc.h"
 #define DEBUG_PRINT
 
-struct myROB{
+struct rob{
 
 	int state;
 	int src_state1,src_state2, oprand_state;
@@ -28,12 +28,12 @@ struct myROB{
 	unsigned int count_ex;
 	int entry;
 	int depend_entry1, depend_entry2;
-	myROB *nextrob;
-	myROB *lastrob;
+	rob *nextrob;
+	rob *lastrob;
 
 };
 
-struct RegisterFile
+struct regFile
 {
 	int tag;
 	int valid;
@@ -64,10 +64,10 @@ int main (int argc, char* argv[]){
 	int		clk_cycle;
 	int		count_rob,count_rob_id;
 	int		count_FU, count_issue;
-	static RegisterFile rf[100];
+	static regFile rf[100];
 	double IPC;
-	myROB rob[params.rob_size];
-	myROB *head, *temprob, *temprob2, *tail;
+	rob rob[params.rob_size];
+	rob *head, *temprob, *temprob2, *tail;
 
 	head=rob;
 	tail=head;
