@@ -391,11 +391,11 @@ while(printednum<10000)
 	
 	printf("number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5f",printednum,cycle_final,IPC);
 	fprintf(out,"number of instructions = %d\nnumber of cycles       = %d\nIPC                    = %1.5lf",printednum,cycle_final,IPC);
-	fclose(out);
-
-	fclose(FP);
 	
-	getchar();
+
+	
+	
+	
 	return 0;
 
 
